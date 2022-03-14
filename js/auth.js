@@ -32,8 +32,7 @@ function logIn() {
             window.sessionStorage.setItem('playerToken', data.token);
             window.application.renderScreen('lobby');
         } else {
-            // #TODO: Pretty error page
-            alert('Something went wrong. Please, try again later')
+            window.application.renderBlock('modalPopUp', '.app', {'modalContentBody':generateErrorModalContent(data.status, 'Something went wrong')});
         }
     })
     .catch( () => {} );

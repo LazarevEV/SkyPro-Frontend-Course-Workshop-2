@@ -14,22 +14,22 @@
 </head>
 <body onload="window.application.renderScreen('auth')">
     <div class="app"></div>
+    <script src="js/utilities.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/lobby.js"></script>
+    <script src="js/gameSearch.js"></script>
+    <script src="js/modalPopUp.js"></script>
     <script>
         window.application = {
             blocks: {
                 'auth': (container) => {
                     buildBlockAuth(container);
                 },               
-                'authError': (container) => {
-
-                },
                 'lobbyPlayerList': (container) => {
                     buildBlockLobbyPlayerList(container);
                 },
-                'gameSearch': (container) => {
-
+                'gameSearchScreen': (container) => {
+                    buildGameSearchScreen(container);
                 },
                 'gamePlayerTurn': (container) => {
 
@@ -54,6 +54,10 @@
                 },
                 'defeatPlayMoreButton': (container) => {
                 
+                },
+                'modalPopUp': (container, args) => {
+                    deleteElementIfExists(document.querySelector('.modal-wrapper'));
+                    renderModalPopUp(container, args.modalContentBody);
                 }
             },
             screens: {
@@ -65,9 +69,6 @@
                 },
                 'lobby': () => {
                     window.application.blocks['lobbyPlayerList']('app');
-                },
-                'gameSearch': () => {
-
                 },
                 'gamePane': () => {
 
@@ -81,10 +82,15 @@
             },
             renderScreen: function(screenName) {
                 clearPage();
+                clearInterval();
                 window.application.screens[screenName]();
             },
-            renderBlock: function(blockName, container) {
-                window.application.blocks[blockName](container);
+            renderBlock: function(blockName, container, args={}) {
+                if (Object.keys(args).length === 0) {
+                    window.application.blocks[blockName](container);
+                } else {
+                    window.application.blocks[blockName](container, args);
+                }
             },
             timers: []
         }
@@ -93,6 +99,19 @@
             const appBlock = document.querySelector('.app');
             appBlock.innerHTML = '';
         }
+
+        function clearTimers() {
+            window.application.timers.forEach(timer => {
+                clearInterval(timer);
+            });
+        }
+
+        function deleteElementIfExists(element) {
+            if (document.contains(element)) {
+                element.remove();
+            }
+        }
     </script>
+    <script src="js/gamePrepTexts.js"></script>
 </body>
 </html>

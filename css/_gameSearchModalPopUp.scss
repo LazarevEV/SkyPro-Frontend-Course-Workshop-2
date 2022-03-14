@@ -1,0 +1,31 @@
+.mcb-game-search {
+    height: calc(100% - 68px);
+    justify-content: center;
+}
+
+.modal-game-prep-queue-time {
+    font-size: 14px;
+    margin-top: 24px;
+}
+
+.modal-game-prep-pbar {
+    width: 256px;
+    height: 8px;
+    margin-top: 10px;
+    border: 1px solid #565656;
+    border-radius: 5px;
+}
+
+.modal-game-prep-pbar-fill {
+    display: block;
+    height: 100%;
+    width: 100%;
+    background-color: #a5e591;
+    border-radius: 5px;
+    animation: progress 5000ms ease-in 1;
+    animation-iteration-count: infinite;
+}
+
+@keyframes progress {
+    from { width: 3%; }
+}
