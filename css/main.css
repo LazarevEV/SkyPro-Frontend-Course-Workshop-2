@@ -1,0 +1,292 @@
+body {
+  width: 100vw;
+  height: 100vh;
+  font-family: 'Roboto', sans-serif;
+  display: table-cell;
+  vertical-align: middle;
+  background-image: url("../assets/background.jpg");
+  background-size: cover;
+  margin: 0;
+  padding: 0;
+}
+
+.wrapper {
+  width: 256px;
+  height: 320px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  background-color: #f0f0f0;
+  border-radius: 32px;
+  -webkit-box-shadow: 0px 0px 16px 8px rgba(0, 0, 0, 0.25);
+          box-shadow: 0px 0px 16px 8px rgba(0, 0, 0, 0.25);
+  margin: auto;
+}
+
+.empty {
+  border: 1px solid #fd7373;
+}
+
+.wrapper.auth {
+  width: 272px;
+  height: 320px;
+}
+
+.login-label {
+  margin-top: 84px;
+  margin-bottom: 4px;
+  margin-left: 32px;
+  margin-right: 32px;
+}
+
+.login-input {
+  height: 36px;
+  width: 192px;
+  font-size: 28px;
+  padding-left: 8px;
+  padding-right: 8px;
+  border-radius: 8px;
+  border: solid 1px #000000;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.login-button {
+  height: 36px;
+  width: 128px;
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  font-size: 18px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 64px;
+}
+
+.login-button:hover {
+  cursor: pointer;
+  background-color: #e4e4e4;
+}
+
+.wrapper.lobby {
+  width: 960px;
+  height: 75vh;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.stats-bar {
+  height: 48px;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 2fr 1fr;
+      grid-template-columns: 1fr 2fr 1fr;
+  margin-left: 12px;
+  margin-right: 12px;
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+
+.stats {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  margin: 0 auto;
+}
+
+.stat-block {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: center;
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.game-stat-icon {
+  width: 32px;
+  height: 32px;
+}
+
+.stat-text {
+  font-size: 20px;
+  font-weight: 400;
+  text-align: center;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  margin-left: 4px;
+}
+
+.stat-text.player {
+  text-align: left;
+  padding-left: 0px;
+  margin-left: 16px;
+}
+
+.player-list {
+  height: 100%;
+  background-color: #dfdfdf;
+  border-radius: 32px;
+  -webkit-box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.15);
+          box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.15);
+  margin-top: 4px;
+  margin-bottom: 12px;
+}
+
+.player-list-table {
+  width: calc(100% - 64px);
+  border-collapse: collapse;
+  table-layout: fixed;
+  margin-left: 32px;
+  margin-right: 32px;
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+.player-list-table thead tr {
+  border-bottom: solid 1px #bebebe;
+}
+
+.player-list-table td, .player-list-table th {
+  text-align: center;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+.find-game-button {
+  width: 144px;
+  height: 48px;
+  border-radius: 12px;
+  border: none;
+  background-color: #a5e591;
+  font-size: 16px;
+  font-weight: 600;
+  color: #4d4d4d;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  margin-bottom: 12px;
+}
+
+.find-game-button:hover {
+  cursor: pointer;
+  background-color: #73d654;
+  -webkit-transition: .15s;
+  transition: .15s;
+}
+
+.modal-wrapper {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  overflow: auto;
+}
+
+.modal-content {
+  width: 512px;
+  height: 272px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background-color: #f0f0f0;
+  border-radius: 32px;
+  -webkit-box-shadow: 0px 0px 16px 8px rgba(0, 0, 0, 0.25);
+          box-shadow: 0px 0px 16px 8px rgba(0, 0, 0, 0.25);
+  margin: auto;
+  margin-top: calc(50vh - 128px);
+}
+
+.modal-content-header {
+  height: 44px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: end;
+}
+
+.modal-close-button {
+  width: 14px;
+  height: 14px;
+  background: none;
+  border: none;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 0;
+  margin-top: 16px;
+  margin-right: 16px;
+}
+
+.modal-close-icon {
+  width: 12px;
+  height: 12px;
+  padding: 0;
+  margin: 0;
+}
+
+.modal-close-icon:hover {
+  cursor: pointer;
+  -webkit-filter: invert(77%) sepia(24%) saturate(7305%) hue-rotate(311deg) brightness(100%) contrast(105%);
+          filter: invert(77%) sepia(24%) saturate(7305%) hue-rotate(311deg) brightness(100%) contrast(105%);
+}
+
+.modal-content-body {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.modal-error-icon {
+  width: 96px;
+  height: 96px;
+  margin-top: 32px;
+  margin-bottom: 32px;
+}
+
+.modal-error-message {
+  text-align: center;
+}
+/*# sourceMappingURL=main.css.map */

@@ -1,0 +1,44 @@
+.wrapper.auth {
+    width: 272px;
+    height: 320px;
+}
+
+.login-label  {
+    margin-top: 84px;
+    margin-bottom: 4px;
+    margin-left: 32px;
+    margin-right: 32px;
+}
+
+.login-input {
+    height: 36px;
+    width: 192px;
+
+    font-size: 28px;
+    padding-left: 8px;
+    padding-right: 8px;
+
+    border-radius: 8px;
+    border: solid 1px #000000;
+
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.login-button {
+    height: 36px;
+    width: 128px;
+    border-radius: 16px;
+    border: 1px solid rgba(0, 0, 0, .5);
+
+    font-size: 18px;
+
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 64px;
+}
+
+.login-button:hover {
+    cursor: pointer;
+    background-color: #e4e4e4;
+}
