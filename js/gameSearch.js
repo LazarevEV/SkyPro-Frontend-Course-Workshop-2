@@ -49,7 +49,8 @@ function checkGameSearch() {
     .then( (data) => {
         // alert(JSON.stringify(data));
         if ((data.status === 'ok') && (data['game-status'].status !== 'waiting-for-start')) {
-            alert('Imagine that you play the game right now')
+            window.sessionStorage.setItem('playerGameStatus', 'waiting-for-start');
+            window.application.renderScreen('gameScreen', '.app');
             // # TODO: Go To Game Pane
         } else if (data.status === 'error') {
             window.application.renderBlock('modalPopUp', '.app', {'modalContentBody':generateErrorModalContent(data.status, capitalizeFirstLetter(data.message))});

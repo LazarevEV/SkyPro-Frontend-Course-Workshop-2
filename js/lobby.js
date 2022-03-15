@@ -133,11 +133,6 @@ function buildBlockLobbyPlayerList(container) {
     )
 }
 
-function closeModalPopUp() {
-    const modalWindow = document.querySelector('.modal-wrapper');
-    modalWindow.remove();
-}
-
 function findGame() {
     const apiUrl = `https://skypro-rock-scissors-paper.herokuapp.com/start?token=${window.sessionStorage.getItem('playerToken')}`;
     fetch(apiUrl)
@@ -149,7 +144,11 @@ function findGame() {
                 window.application.renderBlock('gameSearchScreen', '.app');
                 break;
             case 'error':
-                window.application.renderBlock('modalPopUp', '.app', {'modalContentBody':generateErrorModalContent(data.status, capitalizeFirstLetter(data.message))});
+                if (data.message === 'player is already in game') {
+                    window.application.renderBlock('gameSearchScreen', '.app');
+                } else {
+                    window.application.renderBlock('modalPopUp', '.app', {'modalContentBody':generateErrorModalContent(data.status, capitalizeFirstLetter(data.message))});
+                }
                 // renderModalPopUp(data.status, capitalizeFirstLetter(data.message));
                 break;
             default:

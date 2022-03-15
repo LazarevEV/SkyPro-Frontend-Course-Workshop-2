@@ -18,6 +18,7 @@
     <script src="js/auth.js"></script>
     <script src="js/lobby.js"></script>
     <script src="js/gameSearch.js"></script>
+    <script src="js/gameScreen.js"></script>
     <script src="js/modalPopUp.js"></script>
     <script>
         window.application = {
@@ -31,11 +32,8 @@
                 'gameSearchScreen': (container) => {
                     buildGameSearchScreen(container);
                 },
-                'gamePlayerTurn': (container) => {
-
-                },
-                'gameOpponentTurn': (container) => {
-
+                'gameScreen': (container) => {
+                    buildGameScreen(container);
                 },
                 'victoryText': (container) => {
 
@@ -57,21 +55,18 @@
                 },
                 'modalPopUp': (container, args) => {
                     deleteElementIfExists(document.querySelector('.modal-wrapper'));
-                    renderModalPopUp(container, args.modalContentBody);
+                    renderModalPopUp(container, ...Object.values(args));
                 }
             },
             screens: {
                 'auth': () => {
                     window.application.blocks['auth']('app');
                 },
-                'authError': () => {
-
-                },
                 'lobby': () => {
                     window.application.blocks['lobbyPlayerList']('app');
                 },
-                'gamePane': () => {
-
+                'gameScreen': () => {
+                    window.application.blocks['gameScreen']('app');
                 },
                 'victory': () => {
 
@@ -82,7 +77,7 @@
             },
             renderScreen: function(screenName) {
                 clearPage();
-                clearInterval();
+                clearTimers();
                 window.application.screens[screenName]();
             },
             renderBlock: function(blockName, container, args={}) {
@@ -101,9 +96,13 @@
         }
 
         function clearTimers() {
-            window.application.timers.forEach(timer => {
+            // window.application.timers.forEach(timer => {
+            //     clearInterval(timer);
+            // });
+
+            while (timer = window.application.timers.pop()) {
                 clearInterval(timer);
-            });
+            }
         }
 
         function deleteElementIfExists(element) {

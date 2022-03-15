@@ -16,7 +16,7 @@ function generateErrorModalContent(status, message) {
     return modalContentBody;
 }
 
-function renderModalPopUp(container, modalContentBody=null) {
+function renderModalPopUp(container, modalContentBody=null, buildCloseButton=true) {
     const modalWrapper = document.createElement('div');
     modalWrapper.classList.add('modal-wrapper');
 
@@ -26,25 +26,34 @@ function renderModalPopUp(container, modalContentBody=null) {
     const modalContentHeader = document.createElement('div');
     modalContentHeader.classList.add('modal-content-header');
 
-    const modalCloseButton = document.createElement('button');
-    modalCloseButton.classList.add('modal-close-button');
-    modalCloseButton.addEventListener('click', closeModalPopUp);
-
-    const closeIcon = document.createElement('img');
-    closeIcon.classList.add('modal-close-icon');
-    closeIcon.setAttribute('src', '../assets/icons/close-icon.png');
-    modalCloseButton.appendChild(closeIcon);
- 
+    if (buildCloseButton) {
+        const modalCloseButton = document.createElement('button');
+        modalCloseButton.classList.add('modal-close-button');
+        modalCloseButton.addEventListener('click', closeModalPopUp);
+        
+        const closeIcon = document.createElement('img');
+        closeIcon.classList.add('modal-close-icon');
+        closeIcon.setAttribute('src', '../assets/icons/close-icon.png');
+        modalCloseButton.appendChild(closeIcon);
+        
+        modalContentHeader.appendChild(modalCloseButton);
+    }
+    
     if (modalContentBody === null) {
         modalContentBody = document.createElement('div');
     }
     modalContentBody.classList.add('modal-content-body');
 
-    modalContentHeader.appendChild(modalCloseButton);
     modalContent.appendChild(modalContentHeader);
     modalContent.appendChild(modalContentBody);
     modalWrapper.appendChild(modalContent);
 
     const appBlock = document.querySelector(container);
     appBlock.appendChild(modalWrapper);
+}
+
+function closeModalPopUp() {
+    clearInterval(window.application.timers.pop());
+    const modalWindow = document.querySelector('.modal-wrapper');
+    modalWindow.remove();
 }
