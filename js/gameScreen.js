@@ -64,7 +64,8 @@ function buildGameScreen(container) {
 
     // Confirm Move Button
     const confirmMoveButton = document.createElement('button');
-    confirmMoveButton.classList.add('confirm-move-button');
+    confirmMoveButton.setAttribute('id', 'confirm-move-button');
+    confirmMoveButton.classList.add('basic-button');
     confirmMoveButton.textContent = 'CONFIRM';
     confirmMoveButton.addEventListener('click', confirmMove);
 
@@ -75,6 +76,7 @@ function buildGameScreen(container) {
     wrapper.appendChild(movePaneWrapper);
     wrapper.appendChild(confirmMoveButton);
 
+    updatePlayerStats();
     updateMoveStatus('Your move!');
     // Set timer for page updates
     checkGameStatus();
@@ -83,7 +85,7 @@ function buildGameScreen(container) {
     )
 }
 
-function updateMoveStatus(statusText, element=null) {
+function updateMoveStatus(statusText) {
     statusText = (statusText == 'waiting-for-your-move') ? 'Your move!' : 'Waiting for your opponent!';
     document.querySelector('.move-status-pane').textContent = statusText;
 }
@@ -133,10 +135,34 @@ function checkGameStatus() {
     .catch( () => {} );
 }
 
+function generateModalFooter() {
+    const modalContentFooter = document.createElement('div');
+    modalContentFooter.classList.add('modal-content-footer');
+
+    const playMoreButton = document.createElement('button');
+    playMoreButton.classList.add('basic-button');
+    playMoreButton.classList.add('modal-play-more-button');
+    playMoreButton.textContent = 'PLAY MORE';
+    playMoreButton.addEventListener('click', findGame);
+    modalContentFooter.appendChild(playMoreButton);
+
+    const goToLobbyButton = document.createElement('button');
+    goToLobbyButton.classList.add('basic-button');
+    goToLobbyButton.classList.add('modal-go-to-lobby-button');
+    goToLobbyButton.textContent = 'LOBBY';
+    goToLobbyButton.addEventListener('click', () => {
+        window.application.renderScreen('lobby');
+    });
+    modalContentFooter.appendChild(goToLobbyButton);
+
+    return modalContentFooter;
+}
+
 function generateWinModalContent() {
     const modalContentBody = document.createElement('div');
-    modalContentBody.classList.add('lobby-modal')
+    modalContentBody.classList.add('lobby-modal');
 
+    // Render Result Text
     const modalGameResultText = document.createElement('span');
     modalGameResultText.classList.add('modal-game-result-text');
     modalGameResultText.textContent = 'Congratulations! You have won!';
@@ -150,11 +176,26 @@ function generateWinModalContent() {
         modalContentBody.appendChild(fireworkDiv);
     }
 
+    // Render Buttons
+    modalContentBody.appendChild(generateModalFooter());
+
     return modalContentBody;
 }
 
 function generateLoseModalContent() {
+    const modalContentBody = document.createElement('div');
+    modalContentBody.classList.add('lobby-modal')
 
+    // Render Result Text
+    const modalGameResultText = document.createElement('span');
+    modalGameResultText.classList.add('modal-game-result-text');
+    modalGameResultText.textContent = 'You have lost!:(';
+    modalContentBody.appendChild(modalGameResultText);
+
+    // Render Buttons
+    modalContentBody.appendChild(generateModalFooter());
+
+    return modalContentBody;
 }
 
 function updateGameScreen(gameStatus) {
@@ -163,17 +204,30 @@ function updateGameScreen(gameStatus) {
             window.application.renderBlock('gameSearchScreen', '.app');
             break;
         case 'lose':
-                break;
+            updatePlayerStats();
+            window.application.renderBlock('modalPopUp', '.app', {'modalContentBody':generateLoseModalContent(), 'buildCloseButton':false});
+            break;
         case 'win':
+            updatePlayerStats();
             window.application.renderBlock('modalPopUp', '.app', {'modalContentBody':generateWinModalContent(), 'buildCloseButton':false});
-                break;
+            break;
         default:
-            // window.application.renderScreen('gameScreen', '.app');
             updateMoveStatus(gameStatus);
             break;
-        // case 'waiting-for-your-move':
-        //     break;
-        // case 'waiting-for-enemy-move':
-        //     break;
     }
+}
+
+function updatePlayerStats() {
+    const apiUrl = `https://skypro-rock-scissors-paper.herokuapp.com/player-list?token=${window.sessionStorage.getItem('playerToken')}`;
+    fetch(apiUrl)
+    .then( (response) => { return response.json(); })
+    .then( (data) => {
+        if (data.status === 'ok') {
+            setCurrentPlayerData(data.list);
+        } else {
+            // #TODO: Pretty error page
+            alert('Something went wrong. Please, try again later')
+        }
+    })
+    .catch( () => {} );
 }

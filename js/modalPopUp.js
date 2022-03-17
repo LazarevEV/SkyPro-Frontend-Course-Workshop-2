@@ -1,6 +1,5 @@
 function generateErrorModalContent(status, message) {
     const modalContentBody = document.createElement('div');
-    modalContentBody.classList.add('lobby-modal')
     if (status === 'error') {
         const modalContentIcon = document.createElement('img');
         modalContentIcon.classList.add('modal-error-icon');

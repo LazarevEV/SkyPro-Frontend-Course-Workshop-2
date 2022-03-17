@@ -10,7 +10,8 @@ function buildBlockAuth(container) {
     loginInput.classList.add('login-input');
 
     const loginButton = document.createElement('button');
-    loginButton.classList.add('login-button');
+    // loginButton.classList.add('login-button');
+    loginButton.classList.add('basic-button', 'login-button');
     loginButton.textContent = 'LOG IN'
     loginButton.addEventListener('click', logIn);
 

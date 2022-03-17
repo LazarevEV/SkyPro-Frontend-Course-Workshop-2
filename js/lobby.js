@@ -115,6 +115,7 @@ function buildBlockLobbyPlayerList(container) {
 
     // Find Game Button
     const findGameButton = document.createElement('button');
+    findGameButton.classList.add('basic-button');
     findGameButton.classList.add('find-game-button');
     findGameButton.textContent = 'FIND GAME';
     findGameButton.addEventListener('click', findGame)

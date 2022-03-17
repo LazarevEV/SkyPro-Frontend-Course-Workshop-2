@@ -35,24 +35,6 @@
                 'gameScreen': (container) => {
                     buildGameScreen(container);
                 },
-                'victoryText': (container) => {
-
-                },
-                'victoryLobbyButton': (container) => {
-
-                },
-                'victoryPlayMoreButton': (container) => {
-
-                },
-                'defeatText': (container) => {
-
-                },
-                'defeatLobbyButton': (container) => {
-                
-                },
-                'defeatPlayMoreButton': (container) => {
-                
-                },
                 'modalPopUp': (container, args) => {
                     deleteElementIfExists(document.querySelector('.modal-wrapper'));
                     renderModalPopUp(container, ...Object.values(args));
@@ -68,12 +50,6 @@
                 'gameScreen': () => {
                     window.application.blocks['gameScreen']('app');
                 },
-                'victory': () => {
-
-                },
-                'defeat': () => {
-
-                }
             },
             renderScreen: function(screenName) {
                 clearPage();
@@ -96,10 +72,6 @@
         }
 
         function clearTimers() {
-            // window.application.timers.forEach(timer => {
-            //     clearInterval(timer);
-            // });
-
             while (timer = window.application.timers.pop()) {
                 clearInterval(timer);
             }

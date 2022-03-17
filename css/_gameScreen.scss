@@ -42,11 +42,11 @@
 
 .move-button:hover {
     cursor: pointer;
-    outline: 4px solid #9C0332;
+    outline: 4px solid #75af64;
 }
 
 .move-button.active {
-    outline: 4px solid #9C0332;
+    outline: 4px solid #75af64;
 }
 
 .move-icon {
@@ -54,30 +54,29 @@
     height: 100%;
 }
 
-.confirm-move-button {
-    width: 144px;
-    height: 48px;
-
-    border-radius: 12px;
-    border: none;
-    background-color: #a5e591;
-
-    font-size: 16px;
-    font-weight: 600;
-    color: #4d4d4d;
-
-    align-self: center;
-    margin-bottom: 12px;
-}
-
-.confirm-move-button:hover {
-    cursor: pointer;
-    background-color: #73d654;
-    transition: .15s;
-}
-
 // Game Result Modal
+.lobby-modal {
+    justify-content: space-between;
+}
 
+.modal-game-result-text {
+    font-size: 24px;
+    text-align: center;
+
+    margin-top: 80px;
+}
+
+.modal-content-footer {
+    height: 44px;
+    justify-self: flex-end;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 64px;
+
+    margin-bottom: 24px;
+}
 
 [class^='firework-'] {
     position: absolute;
@@ -86,57 +85,58 @@
     border-radius: 50%;
   }
   
-  $count: 15;
-  $frame-list: firework-sm, firework-md, firework-lg;
-  @for $i from 1 through $count {
+$count: 15;
+$frame-list: firework-sm, firework-md, firework-lg;
+@for $i from 1 through $count {
     .firework-#{$i} {
-      animation: nth($frame-list, random(3)) 1.2s both infinite;
-      animation-delay: #{random($count) * 0.1}s;
-      top: random(16) * 5% + 10%;
-      left: random(16) * 5% + 10%;
+        animation: nth($frame-list, random(3)) 1.2s both infinite;
+        animation-delay: #{random($count) * 0.1}s;
+        top: random(16) * 5% + 10%;
+        left: random(16) * 5% + 10%;
     }
-  }
+}
   
-  
-  // dots generator
-  @function dots($r) {
+// dots generator
+$colors: #EF6C96, #f1e6a3, #516FA3, #FF7243, #6B8B40, #FFF479;
+@function dots($r) {
     $result: ();
     // straight
     @for $i from 1 through 4 {
-      $x: 0;
-      $y: 0;
-      @if $i <= 2 {$x: $r} @else {$y: $r}
-      @if $i % 2 != 0 {$x: -$x; $y: -$y}
-      $result: append($result, #{$x}rem #{$y}rem 0 #fff, comma);
+        $x: 0;
+        $y: 0;
+        @if $i <= 2 {$x: $r} @else {$y: $r}
+        @if $i % 2 != 0 {$x: -$x; $y: -$y}
+        $result: append($result, #{$x}rem #{$y}rem 0 nth($colors, random(6)), comma);
     }
     // diagonal
     @for $i from 1 through 4 {
-      $dist2: $r * 0.7;
-      $x: $dist2;
-      $y: $dist2;
-      @if $i > 2 {$x: -$x}
-      @if $i % 2 != 0 {$y: -$y}
-      $result: append($result, #{$x}rem #{$y}rem 0 #fff, comma);
+        $dist2: $r * 0.7;
+        $x: $dist2;
+        $y: $dist2;
+        @if $i > 2 {$x: -$x}
+        @if $i % 2 != 0 {$y: -$y}
+        $result: append($result, #{$x}rem #{$y}rem 0 nth($colors, random(6)), comma);
     }
     @return $result;
-  }
+}
   
-  // firework animation
-  @mixin fireworkSize($name, $r) {
+// firework animation
+@mixin fireworkSize($name, $r) {
     @keyframes firework-#{$name} {
-      0%,
-      100% {
-        opacity: 0;
-      }
-      10%,
-      70% {
-        opacity: 1;
-      }
-      100% {
-        box-shadow: dots($r);
-      }
+        0%,
+        100% {
+          opacity: 0;
+        }
+        10%,
+        70% {
+          opacity: 1;
+        }
+        100% {
+          box-shadow: dots($r);
+        }
     }
-  }
-  @include fireworkSize(sm, 1.2);
-  @include fireworkSize(md, 1.8);
-  @include fireworkSize(lg, 2.4);
+}
+
+@include fireworkSize(sm, 1.2);
+@include fireworkSize(md, 1.8);
+@include fireworkSize(lg, 2.4);
