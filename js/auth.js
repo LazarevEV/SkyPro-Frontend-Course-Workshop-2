@@ -22,6 +22,20 @@ function buildBlockAuth(container) {
     wrapper.appendChild(loginButton);
 }
 
+function loadNextScreen() {
+    const apiUrl = `https://skypro-rock-scissors-paper.herokuapp.com/player-status?token=${window.sessionStorage.getItem('playerToken')}`;
+    fetch(apiUrl)
+    .then( (response) => { return response.json(); })
+    .then( (data) => {
+        if (data.status === 'ok') {
+            (data['player-status'].status === 'lobby') ? window.application.renderScreen('lobby') : window.application.renderScreen('gameScreen');
+        } else {
+            window.application.renderBlock('modalPopUp', '.app', {'modalContentBody':generateErrorModalContent(data.status, 'Something went wrong')});
+        }
+    })
+    .catch( () => {} );
+}
+
 function logIn() {
     const enteredLogin = document.querySelector('.login-input').value;
     const apiUrl = `https://skypro-rock-scissors-paper.herokuapp.com/login?login=${enteredLogin}`;
@@ -31,7 +45,8 @@ function logIn() {
         if (data.status === 'ok') {
             window.sessionStorage.setItem('playerLogin', enteredLogin);
             window.sessionStorage.setItem('playerToken', data.token);
-            window.application.renderScreen('lobby');
+            // window.application.renderScreen('lobby');
+            loadNextScreen();
         } else {
             window.application.renderBlock('modalPopUp', '.app', {'modalContentBody':generateErrorModalContent(data.status, 'Something went wrong')});
         }
